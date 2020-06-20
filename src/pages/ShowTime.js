@@ -1,8 +1,12 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import { qlPhimService } from '../services/quanLyPhimService';
-import { userLogin } from '../settings/config';
+import { qlNguoiDungService} from '../services/quanLyNguoiDungService'
+import { userLogin, accessToken } from '../settings/config';
 
 export default function ShowTime(props) {
+
+    // console.log(localStorage.getItem(accessToken));
+    // console.log(localStorage.getItem(userLogin));
 
     // let [thongTinPhim, setThongTinPhim] = useState({});
     let [thongTinLichChieu, setThongTinLichChieu] = useState({danhSachGhe: [], thongTinPhim: {}});
@@ -55,15 +59,16 @@ export default function ShowTime(props) {
 
         // let taiKhoanNguoiDung = JSON.parse(localStorage.getItem(userLogin)).taiKhoan;
         //Làm chức năng đăng nhập
-        let taiKhoanNguoiDung = "123@admin";
+
+        // console.log(taiKhoanNguoiDung)
 
         let thongTinDatVe = {
             "maLichChieu": props.match.params.maLichChieu,
             "danhSachVe": danhSachGheDangDat,
-            "taiKhoanNguoiDung": taiKhoanNguoiDung
+            "taiKhoanNguoiDung": localStorage.getItem('userLogin')
         }
 
-        qlPhimService.datVe(thongTinDatVe).then(res => {
+        qlNguoiDungService.datVe(thongTinDatVe).then(res => {
             console.log(res.data);
         }).catch(err => {
             console.log(err.response.data);

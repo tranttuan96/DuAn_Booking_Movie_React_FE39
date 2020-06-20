@@ -1,8 +1,9 @@
 import React, { Fragment, useState } from "react";
-import { Route } from "react-router-dom";
+import { Route, NavLink } from "react-router-dom";
 import './HomeTemplate.scss'
+import {useSelector} from 'react-redux'
 
-import { Layout, Affix, Button } from 'antd';
+import { Layout, Affix } from 'antd';
 
 const { Header, Footer, Content } = Layout;
 
@@ -16,7 +17,19 @@ const { Header, Footer, Content } = Layout;
 //   };
 
 
+
 const HomeLayout = (props) => {
+
+    const taiKhoan = useSelector((state) => state.quanLyNguoiDungReducer.taiKhoan)
+        
+    const renderLogin = () => {
+        if (taiKhoan === '') {
+            return <NavLink activeStyle={{color:'red'}} activeClassName="bg-dark" className="nav-link" to="/login">Đăng nhập</NavLink>
+        }
+    return <NavLink to="/" className="nav-link">Hello! {taiKhoan}</NavLink>
+    }
+
+
     return (
         <Fragment>
             <Layout>
@@ -30,7 +43,7 @@ const HomeLayout = (props) => {
 
                             </div>
                             <div className="col-4">
-
+                                {renderLogin()}
                             </div>
                         </div>
 

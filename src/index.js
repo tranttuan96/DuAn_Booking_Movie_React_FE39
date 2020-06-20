@@ -7,7 +7,7 @@ import * as serviceWorker from './serviceWorker';
 import 'antd/dist/antd.css';
 
 import {createStore, applyMiddleware} from 'redux';
-import rootReducer from './redux/rootReducer';
+import rootReducer from './redux/reducers/rootReducer';
 import {Provider} from 'react-redux';
 import reduxThunk from 'redux-thunk';
 const store = createStore(rootReducer, applyMiddleware(reduxThunk));

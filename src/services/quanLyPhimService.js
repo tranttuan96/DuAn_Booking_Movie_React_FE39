@@ -20,17 +20,17 @@ export class quanLyPhimService {
             method:'GET'
         })
     }
-    datVe = (thongTinDatVe) => {
-        return axios({
-            url:`${domain}/QuanLyDatVe/DatVe`,
-            method:'POST',
-            data: thongTinDatVe,
-            headers: {
-                // "Authorization": `Bearer ${localStorage.getItem(accessToken)}`
-                "Authorization": `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiMTIzQGFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiS2hhY2hIYW5nIiwibmJmIjoxNTkxOTcxNDI4LCJleHAiOjE1OTE5NzUwMjh9.khL55C9DPGJxgv_aEV_v2PomELumTLUQYwvyfnpVX1I`
-            }
-        })
-    }
+    // datVe = (thongTinDatVe) => {
+    //     return axios({
+    //         url:`${domain}/QuanLyDatVe/DatVe`,
+    //         method:'POST',
+    //         data: thongTinDatVe,
+    //         headers: {
+    //             // "Authorization": `Bearer ${localStorage.getItem(accessToken)}`
+    //             "Authorization": `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiMTIzQGFkbWluIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiS2hhY2hIYW5nIiwibmJmIjoxNTkxOTcxNDI4LCJleHAiOjE1OTE5NzUwMjh9.khL55C9DPGJxgv_aEV_v2PomELumTLUQYwvyfnpVX1I`
+    //         }
+    //     })
+    // }
 }
 
 export const qlPhimService = new quanLyPhimService();
