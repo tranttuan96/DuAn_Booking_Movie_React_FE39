@@ -9,6 +9,14 @@ export class quanLyNguoiDungService {
             data:userLogin
         })
     }
+
+    dangKy = (userRegister) => {
+        return axios({
+            url:`${domain}/QuanLyNguoiDung/DangKy`,
+            method:'POST',
+            data:userRegister
+        })
+    }
     datVe = (thongTinDatVe) => {
         return axios({
             url: `${domain}/quanlydatve/datve`,

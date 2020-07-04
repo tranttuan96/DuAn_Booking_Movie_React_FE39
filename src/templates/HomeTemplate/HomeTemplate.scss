@@ -3,4 +3,29 @@
     padding: 0 !important;
     background-color: rgba(255,255,255,.95) !important;
     box-shadow: 0 0 15px rgba(0,0,0,.3);
+    .navbar {
+        height: 60px !important;
+        padding: 0 !important;
+        .header__left, .header__center, .header__right {
+            height: 60px !important;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .header__left {
+            justify-content: left;
+            padding-left: 25px;
+            .navbar-brand {
+                display: flex;
+                align-items: center;
+                padding: 0;
+                height: 60px !important;
+                img {
+                    width: 45px;
+                    height: 45px;
+                    vertical-align: middle;
+                }
+            }
+        }
+    }
 }
