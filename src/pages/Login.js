@@ -43,8 +43,7 @@ export default function Login(props) {
             //dispatch lên reducer
             dispatch(dangNhapAction(res.data.taiKhoan))
             // setTaiKhoanLogin(res.data.taiKhoan);
-            props.history.push('/home');
-
+            props.history.goBack();
         }).catch(error => {
             console.log('error', error.response.data)
         })

@@ -2,6 +2,8 @@ import React, { useState, useEffect, Fragment } from 'react';
 import { qlPhimService } from '../services/quanLyPhimService';
 import { qlNguoiDungService} from '../services/quanLyNguoiDungService'
 import { userLogin, accessToken } from '../settings/config';
+import { useDispatch, useSelector } from 'react-redux';
+import { luuTruDSGheAction } from '../redux/actions/quanLyDatGheAction'
 
 export default function ShowTime(props) {
 
@@ -12,6 +14,18 @@ export default function ShowTime(props) {
     let [thongTinLichChieu, setThongTinLichChieu] = useState({danhSachGhe: [], thongTinPhim: {}});
     let [danhSachGheDangDat, setDanhSachGheDangDat] = useState([]);
 
+    const dispatch = useDispatch();
+
+    const danhSachGheDangDatData = useSelector((state) => state.quanLyDatGheReducer.danhSachGheDangDatData);
+    console.log(danhSachGheDangDatData)
+    if (danhSachGheDangDatData.length !== 0) 
+    {
+        danhSachGheDangDatData.map((gheDangDat, index) => {
+            return danhSachGheDangDat = [...danhSachGheDangDat, gheDangDat];
+        });   
+    }
+    console.log(danhSachGheDangDat)
+    console.log(danhSachGheDangDat === danhSachGheDangDatData)
 
     useEffect(() => {
         //Lấy maLichChieu từ params
@@ -57,22 +71,28 @@ export default function ShowTime(props) {
 
     const datVe = () => {
 
-        // let taiKhoanNguoiDung = JSON.parse(localStorage.getItem(userLogin)).taiKhoan;
+        let taiKhoanNguoiDung = localStorage.getItem(userLogin);
+        console.log(taiKhoanNguoiDung);
         //Làm chức năng đăng nhập
-
-        // console.log(taiKhoanNguoiDung)
-
-        let thongTinDatVe = {
-            "maLichChieu": props.match.params.maLichChieu,
-            "danhSachVe": danhSachGheDangDat,
-            "taiKhoanNguoiDung": localStorage.getItem('userLogin')
+        if (taiKhoanNguoiDung) {
+            let thongTinDatVe = {
+                "maLichChieu": props.match.params.maLichChieu,
+                "danhSachVe": danhSachGheDangDat,
+                "taiKhoanNguoiDung": localStorage.getItem(userLogin)
+            }
+            qlNguoiDungService.datVe(thongTinDatVe).then(res => {
+                console.log(res.data);
+            }).catch(err => {
+                console.log(err.response.data);
+            })
+        }
+        else {
+            //dispatch danhSachGheDangDat lên reducer
+            dispatch(luuTruDSGheAction(danhSachGheDangDat));
+            props.history.push('/login');
         }
 
-        qlNguoiDungService.datVe(thongTinDatVe).then(res => {
-            console.log(res.data);
-        }).catch(err => {
-            console.log(err.response.data);
-        })
+        
     }
 
     const renderDanhSachGhe = () => {

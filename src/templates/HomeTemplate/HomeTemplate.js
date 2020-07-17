@@ -59,7 +59,7 @@ const HomeLayout = (props) => {
                             </div>
                         </div>
                     </Header>
-                </Affix>,
+                </Affix>
                 <Content>
                     {props.children}
                 </Content>
