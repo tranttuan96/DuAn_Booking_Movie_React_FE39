@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { qlPhimService } from '../services/quanLyPhimService';
 import { NavLink } from 'react-router-dom';
 import Slider from "react-slick";
+// import { Spin } from 'antd';
 
 export default function Home(props) {
 
@@ -23,8 +24,8 @@ export default function Home(props) {
             setDanhSachPhim(res.data);
         }).catch(error => {
             console.log(error.response.data);
-        })
-    }, [])
+        });
+    }, []);
 
     const renderPhim = () => {
         return danhSachPhim.map((phim, index) => {
@@ -45,16 +46,19 @@ export default function Home(props) {
             return <div key={index}>
                 <img src={phim.hinhAnh} style={{ width: '100%', height: '100%' }}></img>
                 {/* Button trigger modal */}
-                <button type="button" className="btn slider__trailer" data-toggle="modal" data-target="#modelId" onClick={() => { chonTrailer(phim.trailer) }}>
+                <button type="button" className="btn slider__trailer" data-toggle="modal" data-target="#modelId" onClick={() => { xemTrailer(phim.trailer) }}>
                     <img src={'./images/play-video.png'}></img>
                 </button>
             </div>
         })
     }
 
-    const chonTrailer = (phimTrailer) => {
-        console.log(phimTrailer)
-        setTrailerPhim({...trailerPhim, trailer: phimTrailer });
+    const xemTrailer = (phimTrailer) => {
+        setTrailerPhim({ ...trailerPhim, trailer: phimTrailer });
+    }
+
+    const tatTrailer = () => {
+        setTrailerPhim({ ...trailerPhim, trailer: '' });
     }
 
     const renderTrailer = () => {
@@ -77,6 +81,7 @@ export default function Home(props) {
             <Slider {...settings}>
                 {renderCarousel()}
             </Slider>
+            {/* <iframe width={560} height={315} src={trailerPhim?.trailer} frameBorder={0} allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen /> */}
             <div className="container">
                 <div className="row">
                     {renderPhim()}
@@ -86,24 +91,23 @@ export default function Home(props) {
 
 
             {/* Modal */}
-            <div className="modal fade" id="modelId" tabIndex={-1} role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+            <div className="modal fade" id="modelId" tabIndex={-1} role="dialog" aria-labelledby="modelTitleId" aria-hidden="true" data-keyboard="false" onClick={() => { tatTrailer() }}>
                 <div className="modal-dialog" role="document">
                     <div className="modal-content">
                         <div className="modal-header">
                             <h5 className="modal-title">Modal title</h5>
-                            <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                            <button type="button" className="close" data-dismiss="modal" aria-label="Close" 
+                            >
                                 <span aria-hidden="true">×</span>
                             </button>
                         </div>
                         <div className="modal-body">
                             {renderTrailer()}
-                            {/* <iframe width={560} height={315} src="https://www.youtube.com/embed/dgUAoEIeigo" frameBorder={0} allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen /> */}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
     )
 }
 
