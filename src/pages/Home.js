@@ -2,9 +2,11 @@ import React, { useEffect, useState } from 'react'
 import { qlPhimService } from '../services/quanLyPhimService';
 import { NavLink } from 'react-router-dom';
 import Slider from "react-slick";
-// import { Spin } from 'antd';
+import moment from 'moment';
 
 export default function Home(props) {
+
+
 
     let carouselPhim = [
         { stt: 1, hinhAnh: './images/carousel__image1.png', trailer: 'https://www.youtube.com/embed/dgUAoEIeigo' },
@@ -15,8 +17,18 @@ export default function Home(props) {
 
     let [danhSachPhim, setDanhSachPhim] = useState([]);
     let [trailerPhim, setTrailerPhim] = useState({});
+    let [selectMovie, setSelectMovie] = useState({
+        values: {
+            phim: '',
+            rap: '',
+            ngayXem: '',
+            suatChieu: '',
+        },
+    });
 
-    //Ứng với componentdidmount
+    let [thongTinPhim, setThongTinPhim] = useState({});
+
+    // Ứng với componentdidmount
     useEffect(() => {
         //Gọi service Api set lại state danhSachPhim
         qlPhimService.layDanhSachPhim().then(res => {
@@ -25,7 +37,17 @@ export default function Home(props) {
         }).catch(error => {
             console.log(error.response.data);
         });
+
     }, []);
+
+    // useEffect(() => {
+    //     qlPhimService.layThongTinPhim_LichChieu(selectMovie?.phim).then((res) => {
+    //         console.log(res.data);
+    //         setThongTinPhim(res.data)
+    //     }).catch(errors => {
+    //         console.log(errors.response.data);
+    //     });
+    // }, [selectMovie.values?.phim]);
 
     const renderPhim = () => {
         return danhSachPhim.map((phim, index) => {
@@ -41,6 +63,8 @@ export default function Home(props) {
         })
     }
 
+
+    //carousel
     const renderCarousel = () => {
         return carouselPhim.map((phim, index) => {
             return <div key={index}>
@@ -65,13 +89,128 @@ export default function Home(props) {
         return <iframe width={560} height={315} src={trailerPhim?.trailer} frameBorder={0} allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />;
     }
 
+
+    //searchBar
+    const renderSelectFilm = () => {
+        return danhSachPhim.map((phim, index) => {
+            if (index < 10) {
+                return <option value={phim.maPhim} key={index}>{phim.tenPhim}</option>
+            }
+        })
+    }
+
+    const renderSelectCinema = () => {
+        if (selectMovie.values.phim) {
+            return thongTinPhim.heThongRapChieu?.map((heThongRap, index) => {
+                return heThongRap.cumRapChieu.map((cumRap, index2) => {
+                    return <option value={cumRap.maCumRap} key={index2}>{cumRap.tenCumRap}</option>
+                })
+    
+            })
+        }
+        else {
+            return <option disabled>Vui lòng chọn phim</option>
+        }
+        
+    }
+
+    const renderSelectDate = () => {
+        if (selectMovie.values.rap) {
+        return thongTinPhim.heThongRapChieu?.map((heThongRap, index) => {
+            let cumRapTemp = heThongRap?.cumRapChieu.find(cumRap => cumRap.maCumRap === selectMovie.values.rap);
+            return cumRapTemp?.lichChieuPhim.map((ngayChieu, index2) => {
+                if (index2 === 0) {
+                    return <option key={index2} value={moment(ngayChieu.ngayChieuGioChieu).format('MMMM Do YYYY')}>{moment(ngayChieu.ngayChieuGioChieu).format('MMMM Do YYYY')}</option>;
+                }
+                else {
+                    let tempDate = moment(cumRapTemp?.lichChieuPhim[index2 - 1].ngayChieuGioChieu).format('MMMM Do YYYY');
+                    if (tempDate !== moment(ngayChieu.ngayChieuGioChieu).format('MMMM Do YYYY')) {
+                        return <option key={index2} value={moment(ngayChieu.ngayChieuGioChieu).format('MMMM Do YYYY')}>{moment(ngayChieu.ngayChieuGioChieu).format('MMMM Do YYYY')}</option>;
+                    }
+                }
+            })
+        })
+        }
+        else {
+            return <option disabled>Vui lòng chọn rạp</option>
+        }
+    }
+
+    const renderSelectSession = () => {
+        if (selectMovie.values.ngayXem) {
+            return thongTinPhim.heThongRapChieu?.map((heThongRap, index) => {
+                let cumRapTemp = heThongRap?.cumRapChieu.find(cumRap => cumRap.maCumRap === selectMovie.values.rap);
+                return cumRapTemp?.lichChieuPhim.map((ngayChieu, index2) => {
+                    if (moment(ngayChieu.ngayChieuGioChieu).format('MMMM Do YYYY') === selectMovie.values.ngayXem) {
+                        return <option key={index2} value={ngayChieu.maLichChieu}>{moment(ngayChieu.ngayChieuGioChieu).format("hh:mm A")}</option>;
+                    }
+                })
+            })
+        }
+        else {
+            return <option disabled>Vui lòng chọn ngày xem</option>
+        }
+    }
+
+    const renderButtonSelectFilm = () => {
+        let classChoPhepDat = "disabled";
+        let { values } = selectMovie;
+        let valid = true;
+        for (let key in values) {
+            if (values[key] === '') { //Nếu như có 1 values = rổng thì không hợp lệ
+                valid = false;
+            }
+        }
+        if (valid) {
+            classChoPhepDat = "";
+        }
+        return <NavLink className={`btn ${classChoPhepDat}`} id="buy_tiket" to={`/showtime/${selectMovie.values.suatChieu}`}>MUA VÉ NGAY</NavLink>
+    }
+
+    const handleChangeSelectFilm = (event) => {
+        let { value, name } = event.target;
+        console.log(event.target.value)
+        console.log(event.target.value)
+        //Tạo ra object this.selectMovie.values mới
+        const newValues = {
+            // phim: event.target.value,
+            // rap: '',
+            ...selectMovie.values,
+            [name]: value,
+            rap: '',
+            ngayXem: '',
+        }
+        //setState lại values
+        setSelectMovie({ values: newValues});
+        qlPhimService.layThongTinPhim_LichChieu(newValues?.phim).then((res) => {
+            console.log(res.data);
+            setThongTinPhim(res.data)
+        }).catch(errors => {
+            console.log(errors.response.data);
+        });
+    };
+
+    const handleChangeSelectCinema = (event) => {
+        console.log(event.target.value)
+        // console.log(event.currentTarget.getAttribute('data-rap'))
+        let { value, name } = event.target;
+        //Tạo ra object this.selectMovie.values mới
+        const newValues = {
+            ...selectMovie.values,
+            [name]: value
+        }
+        console.log(newValues)
+        //setState lại values và errors
+        setSelectMovie({ values: newValues});
+    };
+
     const settings = {
         dots: true,
         infinite: true,
         speed: 1000,
         slidesToShow: 1,
         slidesToScroll: 1,
-        autoplay: true,
+        // autoplay: true,
         autoplaySpeed: 6000,
 
     };
@@ -82,12 +221,42 @@ export default function Home(props) {
                 {renderCarousel()}
             </Slider>
             {/* <iframe width={560} height={315} src={trailerPhim?.trailer} frameBorder={0} allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen /> */}
-            <div className="container">
+            <div className="container homepage__movieList">
+                <form className="searchMovie">
+                    <div className="form-group w30p widthByPercent selectFilm">
+                        <select className="selectMenu" name="phim" onChange={handleChangeSelectFilm}>
+                            {renderSelectFilm()}
+                            <option defaultValue hidden>Phim</option>
+                        </select>
+                    </div>
+                    <div className="form-group dropdown smallBlock widthByPercent selectCinema">
+                        <select className="selectMenu" name="rap" onChange={handleChangeSelectCinema}>
+                            <option selected hidden>Rạp</option>
+                            {renderSelectCinema()}
+                        </select>
+                    </div>
+                    <div className="form-group dropdown smallBlock widthByPercent selectDate">
+                        <select className="selectMenu" name="ngayXem" onChange={handleChangeSelectCinema}>
+                            <option defaultValue hidden>Ngày xem</option>
+                            {renderSelectDate()}
+                        </select>
+                    </div>
+                    <div className="form-group dropdown smallBlock widthByPercent selectSession">
+                        <select className="selectMenu" name="suatChieu" onChange={handleChangeSelectCinema}>
+                            <option defaultValue hidden>Suất chiếu</option>
+                            {renderSelectSession()}
+                        </select>
+                    </div>
+
+                    <div className="form-group smallBlock widthByPercent">
+                        {renderButtonSelectFilm()}
+                    </div>
+
+                </form>
                 <div className="row">
                     {renderPhim()}
                 </div>
             </div>
-
 
 
             {/* Modal */}
@@ -96,7 +265,7 @@ export default function Home(props) {
                     <div className="modal-content">
                         <div className="modal-header">
                             <h5 className="modal-title">Modal title</h5>
-                            <button type="button" className="close" data-dismiss="modal" aria-label="Close" 
+                            <button type="button" className="close" data-dismiss="modal" aria-label="Close"
                             >
                                 <span aria-hidden="true">×</span>
                             </button>
