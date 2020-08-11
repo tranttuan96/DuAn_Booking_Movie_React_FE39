@@ -1,13 +1,13 @@
 
-let taiKhoan = '';
+let userLogin = '';
 
 if (localStorage.getItem('userLogin')) 
 {
-    taiKhoan = localStorage.getItem('userLogin');
+    userLogin = JSON.parse(localStorage.getItem('userLogin'));
 }
 
 const stateDefault={
-    taiKhoan:taiKhoan
+    taiKhoan: userLogin.taiKhoan
 }
 
 const quanLyNguoiDungReducer = (state= stateDefault, action) => {

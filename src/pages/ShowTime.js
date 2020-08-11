@@ -1,6 +1,6 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import { qlPhimService } from '../services/quanLyPhimService';
-import { qlNguoiDungService} from '../services/quanLyNguoiDungService'
+import { qlNguoiDungService } from '../services/quanLyNguoiDungService'
 import { userLogin, accessToken } from '../settings/config';
 import { useDispatch, useSelector } from 'react-redux';
 import { luuTruDSGheAction } from '../redux/actions/quanLyDatGheAction'
@@ -11,23 +11,25 @@ export default function ShowTime(props) {
     // console.log(localStorage.getItem(userLogin));
 
     // let [thongTinPhim, setThongTinPhim] = useState({});
-    let [thongTinLichChieu, setThongTinLichChieu] = useState({danhSachGhe: [], thongTinPhim: {}});
+    let [thongTinLichChieu, setThongTinLichChieu] = useState({ danhSachGhe: [], thongTinPhim: {} });
     let [danhSachGheDangDat, setDanhSachGheDangDat] = useState([]);
 
     const dispatch = useDispatch();
 
-    const danhSachGheDangDatData = useSelector((state) => state.quanLyDatGheReducer.danhSachGheDangDatData);
-    console.log(danhSachGheDangDatData)
-    if (danhSachGheDangDatData.length !== 0) 
-    {
-        danhSachGheDangDatData.map((gheDangDat, index) => {
+    const dataGheDangDat = useSelector((state) => state.quanLyDatGheReducer.dataGheDangDat);
+    console.log(dataGheDangDat)
+
+    // đặt bên ngoài chứ không đặt trong useEffect do useEffect chỉ chạy 1 lần, khi gọi API layThongTinPhongVe về xong => render lại danh sách ghế, tuy nhiên khi có hàm set danhSachGheDangDat từ dataGheDangDat (như bên dưới) sẽ chỉ chạy 1 lần nếu đặt trong useEffect => đặt bên ngoài
+    if (dataGheDangDat?.danhSachGheDangDatData.length !== 0 && dataGheDangDat?.maLichChieu === props.match.params.maLichChieu) {
+        dataGheDangDat.danhSachGheDangDatData.map((gheDangDat, index) => {
             return danhSachGheDangDat = [...danhSachGheDangDat, gheDangDat];
-        });   
+        });
     }
+
     console.log(danhSachGheDangDat)
-    console.log(danhSachGheDangDat === danhSachGheDangDatData)
 
     useEffect(() => {
+
         //Lấy maLichChieu từ params
         let { maLichChieu } = props.match.params;
         qlPhimService.layThongTinPhongVe(maLichChieu).then((res) => {
@@ -44,11 +46,11 @@ export default function ShowTime(props) {
     }, [])
 
     const renderThongTinPhim = () => {
-        let {thongTinPhim, danhSachGhe} = thongTinLichChieu;
+        let { thongTinPhim, danhSachGhe } = thongTinLichChieu;
         return (<div className="container">
-            <h3 style={{color: 'green', fontSize: 20}}>{danhSachGheDangDat?.reduce((tongTien, gheDangDat, index) => {
+            <h3 style={{ color: 'green', fontSize: 20 }}>{danhSachGheDangDat?.reduce((tongTien, gheDangDat, index) => {
                 return tongTien += gheDangDat.giaVe;
-            },0).toLocaleString()}</h3>
+            }, 0).toLocaleString()}</h3>
             <hr />
             <div className="thongTinPhim">
                 <h3 className="display-5">{thongTinPhim?.tenPhim}</h3>
@@ -57,7 +59,7 @@ export default function ShowTime(props) {
             </div>
             <hr />
             {danhSachGheDangDat.map((gheDangDat, index) => {
-                return <span key={index} style={{fontSize:17, color:'green'}} className="mr-1">G-{gheDangDat.tenGhe}
+                return <span key={index} style={{ fontSize: 17, color: 'green' }} className="mr-1">G-{gheDangDat.tenGhe}
                 </span>
             })}
 
@@ -72,13 +74,12 @@ export default function ShowTime(props) {
     const datVe = () => {
 
         let taiKhoanNguoiDung = localStorage.getItem(userLogin);
-        console.log(taiKhoanNguoiDung);
         //Làm chức năng đăng nhập
         if (taiKhoanNguoiDung) {
             let thongTinDatVe = {
                 "maLichChieu": props.match.params.maLichChieu,
                 "danhSachVe": danhSachGheDangDat,
-                "taiKhoanNguoiDung": localStorage.getItem(userLogin)
+                "taiKhoanNguoiDung": JSON.parse(localStorage.getItem(userLogin)).taiKhoan
             }
             qlNguoiDungService.datVe(thongTinDatVe).then(res => {
                 console.log(res.data);
@@ -88,11 +89,16 @@ export default function ShowTime(props) {
         }
         else {
             //dispatch danhSachGheDangDat lên reducer
-            dispatch(luuTruDSGheAction(danhSachGheDangDat));
+            let dataGheDangDatTemp = {
+                maLichChieu: props.match.params.maLichChieu,
+                danhSachGheDangDatData : danhSachGheDangDat
+            }
+            console.log(dataGheDangDatTemp)
+            dispatch(luuTruDSGheAction(dataGheDangDatTemp));
             props.history.push('/login');
         }
 
-        
+
     }
 
     const renderDanhSachGhe = () => {
@@ -106,7 +112,9 @@ export default function ShowTime(props) {
     }
 
     const renderGhe = (ghe) => {
-
+        if (ghe.stt === 1) {
+            console.log(danhSachGheDangDat)
+        }
         let classGheVip = "";
         if (ghe.loaiGhe === "Vip") {
             classGheVip = "gheVip"

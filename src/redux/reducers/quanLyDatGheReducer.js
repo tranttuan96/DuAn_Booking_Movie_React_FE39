@@ -1,13 +1,16 @@
-let danhSachGheDangDatData = [];
+let dataGheDangDat = {
+    maLichChieu:"",
+    danhSachGheDangDatData : []
+};
 
 const initialState = {
-    danhSachGheDangDatData: danhSachGheDangDatData
+    dataGheDangDat: dataGheDangDat
 }
 
 const quanLyDatGheReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'LUU_TRU_DANH_SACH_GHE_DANG_DAT': {
-            state.danhSachGheDangDatData = action.danhSachGheDangDatData;
+            state.dataGheDangDat = action.dataGheDangDat;
             return {...state}
         };break;
     }

@@ -77,7 +77,7 @@ export default function Register(props) {
         //Gọi api hoặc dispatch redux
         qlNguoiDungService.dangKy(state.values).then(res => {
             console.log(res.data);
-            props.history.push('/login');
+            props.history.goBack();
         }).catch(err => {
             console.log(err.response.data);
         })

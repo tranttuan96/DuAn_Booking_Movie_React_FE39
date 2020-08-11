@@ -3,11 +3,11 @@ import { qlNguoiDungService } from '../services/quanLyNguoiDungService'
 import { useDispatch } from 'react-redux'
 import { dangNhapAction } from '../redux/actions/quanLyNguoiDungAction'
 import { NavLink } from 'react-router-dom';
+import { userLogin, accessToken } from '../settings/config';
 
 export default function Login(props) {
 
-    // let [taiKhoanLogin, setTaiKhoanLogin] = useState();
-
+    const dispatch = useDispatch();
     let [state, setState] = useState({
         values: {
             taiKhoan: '',
@@ -31,15 +31,13 @@ export default function Login(props) {
             })
     }
 
-    const dispatch = useDispatch();
-
     const handleSubmit = (event) => {
         event.preventDefault();
 
         qlNguoiDungService.dangNhap(state.values).then(res => {
             //Lưu vào localStorage
-            localStorage.setItem('userLogin', res.data.taiKhoan)
-            localStorage.setItem('token', res.data.accessToken);
+            localStorage.setItem(userLogin, JSON.stringify(res.data))
+            localStorage.setItem(accessToken, res.data.accessToken);
             //dispatch lên reducer
             dispatch(dangNhapAction(res.data.taiKhoan))
             // setTaiKhoanLogin(res.data.taiKhoan);
@@ -62,7 +60,7 @@ export default function Login(props) {
                 </div>
                 <div className="form-group">
                     <span>Mật khẩu</span>
-                    <input name="matKhau" className="form-control" onChange={handleChange} />
+                    <input type="password" name="matKhau" className="form-control" onChange={handleChange} />
                     <span className="text text-danger">{state.errors.matKhau}</span>
                 </div>
                 <div className="form-group">
