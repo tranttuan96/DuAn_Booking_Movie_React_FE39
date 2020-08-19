@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { NavLink } from 'react-router-dom';
-import { groupID } from '../settings/config';
-import { qlNguoiDungService } from '../services/quanLyNguoiDungService'
+import { groupID } from '../../settings/config';
+import { qlNguoiDungService } from '../../services/quanLyNguoiDungService'
 
 
 export default function Register(props) {

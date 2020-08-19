@@ -1,6 +1,6 @@
 import React, { useState, useEffect, Fragment } from 'react'
-import { userLogin } from '../settings/config';
-import { qlNguoiDungService } from '../services/quanLyNguoiDungService'
+import { userLogin } from '../../../settings/config';
+import { qlNguoiDungService } from '../../../services/quanLyNguoiDungService'
 import swal from 'sweetalert';
 import moment from 'moment';
 import 'moment/locale/vi'

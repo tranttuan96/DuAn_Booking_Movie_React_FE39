@@ -1,61 +1,26 @@
 import React, { Fragment } from "react";
 import { Route, Redirect, NavLink } from "react-router-dom";
-import { useSelector } from 'react-redux'
-import { userLogin, accessToken } from "../../settings/config";
-import { useDispatch } from 'react-redux'
-import { dangNhapAction } from '../../redux/actions/quanLyNguoiDungAction'
 
 import { Layout, Menu, Breadcrumb } from "antd";
-import {
-    UserOutlined,
-    LaptopOutlined,
-    NotificationOutlined,
-} from "@ant-design/icons";
 import "./AdminTemplate.scss";
+import ShowLogin from "../TemplateComponent/ShowLogin";
 
 const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
 
 const AdminLayout = (props) => {
 
-    const taiKhoan = useSelector((state) => state.quanLyNguoiDungReducer.taiKhoan)
-
-    const dispatch = useDispatch();
-
-    const dangXuat = () => {
-        console.log(taiKhoan)
-        localStorage.removeItem(userLogin)
-        localStorage.removeItem(accessToken)
-        dispatch(dangNhapAction(localStorage.getItem(userLogin)))
-    }
-
-    const renderLogin = () => {
-        console.log(taiKhoan)
-        if (taiKhoan !== null && taiKhoan !== undefined) {
-            return <div className="dropdown">
-                <div className="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <NavLink className="nav-link" to="/">Hello ! {taiKhoan}</NavLink>
-                </div>
-                <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <NavLink className="dropdown-item" to="/userdetail">Quản lý Tài khoản</NavLink>
-                    <NavLink className="dropdown-item" to="/" onClick={() => { dangXuat() }}>Đăng xuất</NavLink>
-                </div>
-            </div>
-        }
-        return <NavLink className="nav-link" to="/login">Đăng nhập</NavLink>
-    }
-
     return (
         <Fragment>
-            <Layout className="admin">
+            <Layout className="adminTemplate">
                 <Header>
                     <nav className="navbar navbar-expand-md navbar-light">
                         <div className="header__left col-2">
-                            <NavLink className="navbar-brand" to='/admin'><img src={"./images/cybersoftlogo.png"} style={{ width: 45, height: 45 }} /> ADMIN</NavLink>
+                            <NavLink className="navbar-brand" to='/admin'><img src={"/images/cybersoftlogo.png"} style={{ width: 45, height: 45 }} /> ADMIN</NavLink>
                         </div>
                         <div className="header__center col-8" id="movieMenu"></div>
                         <div className="header__right col-2">
-                            {renderLogin()}
+                            <ShowLogin></ShowLogin>
                         </div>
                     </nav>
                 </Header>

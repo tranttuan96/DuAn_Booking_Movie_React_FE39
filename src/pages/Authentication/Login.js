@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-import { qlNguoiDungService } from '../services/quanLyNguoiDungService'
+import { qlNguoiDungService } from '../../services/quanLyNguoiDungService'
 import { useDispatch } from 'react-redux'
-import { dangNhapAction } from '../redux/actions/quanLyNguoiDungAction'
+import { dangNhapAction } from '../../redux/actions/quanLyNguoiDungAction'
 import { NavLink } from 'react-router-dom';
-import { userLogin, accessToken } from '../settings/config';
+import { userLogin, accessToken } from '../../settings/config';
 
 export default function Login(props) {
 

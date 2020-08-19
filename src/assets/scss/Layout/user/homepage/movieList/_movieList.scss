@@ -1,0 +1,26 @@
+.homepage__movieList {
+  padding-top: 75px;
+  padding-bottom: 40px;
+  background: url(../../../../../img/back-cinemaList.png);
+  background-size: 100%;
+  background-repeat: no-repeat;
+  max-width: 940px;
+  float: none;
+  margin: auto;
+  clear: both;
+  position: relative;
+  .nav-tabs.menuFilm {
+    border: none;
+    justify-content: center;
+    li {
+      a {
+        color: #495057;
+        border: none;
+        background-color: transparent;
+      }
+      a.active {
+        color: #fa5238;
+      }
+    }
+  }
+}

@@ -3,18 +3,19 @@ import { BrowserRouter, Switch, Redirect } from 'react-router-dom'
 import { AdminTemplate } from './templates/AdminTemplate/AdminTemplate';
 import Admin from './pages/Admin/Admin'
 import { HomeTemplate } from './templates/HomeTemplate/HomeTemplate';
-import Home from './pages/Home';
-import MovieDetail from './pages/MovieDetail';
-import ShowTime from './pages/ShowTime';
-import Login from './pages/Login'
+import Home from './pages/User/Homepage/Home';
+import MovieDetail from './pages/User/MovieDetail/MovieDetail';
+import ShowTime from './pages/User/Showtime/ShowTime';
+import Login from './pages/Authentication/Login'
 import { LoginTemplate } from './templates/LoginTemplate/LoginTemplate';
-import Register from './pages/Register';
-import CinemaDetail from './pages/CinemaDetail';
-import UserDetail from './pages/UserDetail';
+import Register from './pages/Authentication/Register';
+import CinemaDetail from './pages/User/CinemaDetail/CinemaDetail';
+import UserDetail from './pages/User/UserDetail/UserDetail';
 import ManageMovie from './pages/Admin/Movie/ManageMovie';
 import AddMovie from './pages/Admin/Movie/AddMovie';
 import ManageUser from './pages/Admin/User/ManageUser';
 import AddUser from './pages/Admin/User/AddUser';
+import { ShowTimeTemplate } from './templates/ShowTimeTemplate/ShowTimeTemplate';
 
 export default class App extends Component {
   render() {
@@ -33,7 +34,7 @@ export default class App extends Component {
           <HomeTemplate exact path='/moviedetail/:maPhim' component={MovieDetail} />
           <HomeTemplate exact path='/cinemadetail/:maHeThongRap/:maCumRap' component={CinemaDetail} />
           <HomeTemplate exact path='/userdetail' component={UserDetail} />
-          <HomeTemplate exact path='/showtime/:maLichChieu' component={ShowTime} />
+          <ShowTimeTemplate exact path='/showtime/:maLichChieu' component={ShowTime} />
           <Redirect to="/"/>
         </Switch>
       </BrowserRouter>

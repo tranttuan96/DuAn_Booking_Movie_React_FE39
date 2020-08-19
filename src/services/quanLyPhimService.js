@@ -34,6 +34,13 @@ export class quanLyPhimService {
         })
     }
 
+    layThongTinLichChieuTungHeThongRap = (maHeThongRap) => {
+        return axios({
+            url:`${domain}/QuanLyRap/LayThongTinLichChieuHeThongRap?maHeThongRap=${maHeThongRap}&maNhom=${groupID}`,
+            method:'GET'
+        })
+    }
+    
     themPhimUploadHinh = (formData) => {
         return axios({
             url:`${domain}/QuanLyPhim/ThemPhimUploadHinh`,

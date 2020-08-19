@@ -11,7 +11,7 @@ export default function DataMovie(props) {
         else {
             return props.posts.map((phim, index) => {
                 return <tr key={index}>
-                    <td scope="row">{phim.maPhim}</td>
+                    <td>{phim.maPhim}</td>
                     <td>{phim.tenPhim}</td>
                     <td><img src={phim.hinhAnh} style={{width: '50px', height : '50px' }}></img></td>
                     <td>{phim.moTa}</td>

@@ -1,36 +1,170 @@
-.trapezoid {
-	border-bottom: 30px solid #555;
-	border-left: 25px solid transparent;
-	border-right: 25px solid transparent;
-	height: 0;
-    width: 100%;
+.showTime {
+  .ghe {
+    margin: 3px;
+    background: none;
+    background-color: #3e515d;
+    border-radius: 5px;
+    cursor: pointer;
     color: #fff;
+    //   font-size: 14px;
+    width: 30px;
+    height: 30px;
+  }
+  .gheDaDat {
+    cursor: no-drop;
+    background-color: rgb(207, 207, 207);
+    font-size: 17px;
     font-weight: bold;
+  }
+  .gheVip {
+    background-color: #f7b500;
+  }
+  .gheDangDat {
+    background-color: #44c020;
+    color: #fff;
+  }
+  .screen {
+    width: 80%;
+  }
+  .danhSachGhe {
+  }
+  .loaiGhe {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    div {
+      padding: 5px;
+    }
+    .ghe {
+      width: 20px;
+      height: 20px;
+    }
+    .gheDaDat {
+      font-size: 12px;
+    }
+  }
+  .thongTinPhim {
+	
+    color: #333;
+    position: absolute;
+    z-index: 10;
+    top: 0;
+    right: 0;
+    width: 25%;
+    height: 100vh;
+    background-color: #fff;
+	box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+	.thongTinDatVe {
+		height: 80%;
+		overflow-y: scroll;
+		.bookingPrice {
+			border-bottom: 1px dashed #e9e9e9;
+			height: 80px;
+			line-height: 80px;
+			margin-bottom: 15px;
+			text-align: center;
+			font-size: 36px;
+			color: #44c020 !important;
+		  }
+		  .thongTinPhimSub {
+			text-align: left;
+			padding-bottom: 15px;
+			border-bottom: 1px dashed #e9e9e9;
+			.movieInfo {
+			  .ageType {
+				margin-right: 6px;
+				float: left;
+				background-color: #fb4226;
+				color: #fff;
+				font-size: 14px;
+				border-radius: 4px;
+				padding: 0 5px;
+				display: inline-block;
+				text-align: center;
+				min-width: 33px;
+			  }
+			  .movieName {
+				font-size: 16px;
+				font-weight: 500;
+				margin-bottom: 0;
+				line-height: 1.4;
+			  }
+			}
+			.thongTinRap,
+			.thongTinSuatChieu {
+			  font-size: 14px;
+			  line-height: 1.4;
+			}
+			.thongTinRap {
+			  margin-top: 5px;
+			}
+		  }
+		  .thongTinGhe {
+			font-size: 14px;
+			border-bottom: 1px dashed #e9e9e9;
+			padding-bottom: 12.5px;
+			padding-top: 12.5px;
+			margin-bottom: 12.5px;
+			.gheDangChon {
+			  text-align: left;
+	  
+			  color: #fb4226;
+			  .tilteGhe {
+				margin-right: 5px;
+			  }
+			}
+			.giaGhe {
+			  text-align: right;
+			  color: #44c020;
+			}
+		  }
+		  .thanhToan {
+			.title {
+			  margin-bottom: 10px;
+			}
+			.form-check {
+			  margin-bottom: 5px;
+			  .form-check-input {
+				width: 20px;
+				height: 20px;
+				border-radius: 50%;
+			  }
+			  .form-check-label {
+				img {
+				  border-radius: 5px;
+				  margin-left: 15px;
+				  margin-right: 15px;
+				  width: auto;
+				  max-width: 40px;
+				  vertical-align: middle;
+				}
+			  }
+			}
+		  }
+	}
+    .datVe {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      .warning {
+        margin-bottom: 20px;
+        img {
+          margin-right: 8px;
+          width: 16px;
+          height: 16px;
+        }
+      }
+      button {
+        font-size: 22px;
+        // padding-top: 15px;
+        width: 100%;
+        border-radius: 0;
+        height: 60px;
+        color: #e9e9e9 !important;
+        background-image: linear-gradient(223deg, #b4ec51 0, #429321 100%);
+      }
+    }
+  }
 }
 
-.ghe {
-	margin: 5px;
-	background: none;
-	background-color: rgb(88, 86, 86);
-	border-radius: 5px;
-	cursor: pointer;
-	color: #fff;
-	width: 35px;
-	height: 35px;
-}
-
-.gheDaDat {
-	cursor: no-drop;
-	background-color: rgb(207, 207, 207);
-	font-size: 17px;
-	font-weight: bold;
-}
-
-.gheVip {
-	background-color: orangered;
-}
-
-.gheDangDat {
-	background-color: rgb(73, 243, 73);
-	color: #fff;
-}

@@ -1,0 +1,15 @@
+.homepage__carousel {
+    .slick-slider {
+        &:hover {
+            .slick-list {
+              .slick-track {
+                .slick-slide {
+                  .buttonTrailer {
+                    opacity: 1;
+                  }
+                }
+              }
+            }
+          }
+    }
+}

@@ -1,0 +1,42 @@
+.showLogin {
+  .avatar {
+    height: auto;
+    width: 30px;
+    border-radius: 25px;
+    margin-right: 5px;
+  }
+  .chuaDangNhap {
+    display: inline-block;
+  }
+  .daDangNhap {
+    display: inline !important;
+    .btn.dropdown-toggle {
+      width: 120px;
+      padding: 0;
+      &::after {
+        position: absolute;
+        right: -10%;
+        top: 50%;
+      }
+      a {
+        text-align: left;
+        padding-left: 10px;
+        padding-right: 5px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
+    .dropdown-menu {
+      min-width: 90px;
+      top: 200%;
+      left: 5%;
+      a {
+          text-align: right;
+          font-size: 14px;
+          line-height: 1.4;
+          padding: 10px 10px;
+      }
+    }
+  }
+}

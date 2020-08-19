@@ -100,7 +100,7 @@ export default function ManageMovie() {
     }
 
     return (
-        <div>
+        <div className="manageMovie">
             <h4>Quản lý Phim</h4>
             <div className="clearfix">
                 <Search handleSearch={handleSearch} searchPlaceholder={searchPlaceholder}></Search>
