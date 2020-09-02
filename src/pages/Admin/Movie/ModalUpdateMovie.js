@@ -39,7 +39,7 @@ export default function ModalUpdateMovie(props) {
 
     const handleChange = (event) => {
         let { value, name } = event.target;
-        console.log(event.target.files)
+        // console.log(event.target.files)
         let newValues = {
             ...dataUpdatePhim.values,
         }
@@ -67,7 +67,7 @@ export default function ModalUpdateMovie(props) {
                 newErrors.ngayKhoiChieu = ''
             }
         }
-        console.log(newValues)
+        // console.log(newValues)
         setDataUpdatePhim({ values: newValues, errors: newErrors });
     }
 
@@ -100,13 +100,13 @@ export default function ModalUpdateMovie(props) {
             formData.append(key, dataUpdatePhim.values[key]);
         }
         qlPhimService.capNhatPhimUploadHinh(formData).then(res => {
-            console.log(res.data);
+            // console.log(res.data);
             swal('',"Cập nhật phim thành công", "success", {
                 buttons: false,
                 timer: 1500,
             });
             qlPhimService.layDanhSachPhim().then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 props.setDanhSachPhim(res.data);
             }).catch(error => {
                 console.log(error.response.data);

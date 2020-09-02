@@ -16,7 +16,7 @@ export default function MovieDetail(props) {
     //Gọi service lấy dữ liệu hiển thị component tại lifecycle componentDidmount
     useEffect(() => {
         qlPhimService.layThongTinPhim_LichChieu(props.match.params.maPhim).then((res) => {
-            console.log(res.data);
+            // console.log(res.data);
             setThongTinPhim(res.data)
         }).catch(errors => {
             console.log(errors.response.data);
@@ -49,11 +49,11 @@ export default function MovieDetail(props) {
                 <div className="movieDetail__intro-backGradient">
                 </div>
                 <div className="movieDetail__intro-info">
-                    <div className="movieImg col-3">
-                        <img class='movieThump' src={thongTinPhim.hinhAnh}></img>
+                    <div className="movieImg col-5 col-md-3">
+                        <img className='movieThump' src={thongTinPhim.hinhAnh}></img>
                         <ButtonPlayTrailer phimTrailer={thongTinPhim?.trailer}></ButtonPlayTrailer>
                     </div>
-                    <div className="movieInfo col-6">
+                    <div className="movieInfo col-7 col-md-6">
                         <p className="movieStart">{moment(thongTinPhim?.ngayKhoiChieu).format('L')}</p>
                         <div className="info1">
                             <span className="ageType">C18</span>
@@ -64,7 +64,7 @@ export default function MovieDetail(props) {
                         </div>
                         <a className="directToContent" href="#pills-tab">Mua vé</a>
                     </div>
-                    <div className="movieRating col-3">
+                    <div className="movieRating d-none d-md-block col-md-3">
                         <div className="progress" data-percentage={String(thongTinPhim?.danhGia * 10)}>
                             <span className="progress-left">
                                 <span className="progress-bar" />
@@ -146,8 +146,8 @@ export default function MovieDetail(props) {
                             </div>
                         </div>
                     </div>
-                    <div className="tab-pane fade" id="thongTin" role="tabpanel" aria-labelledby="pills-profile-tab">123123</div>
-                    <div className="tab-pane fade" id="danhGia" role="tabpanel" aria-labelledby="pills-contact-tab">...</div>
+                    <div className="tab-pane fade" id="thongTin" role="tabpanel" aria-labelledby="pills-profile-tab"></div>
+                    <div className="tab-pane fade" id="danhGia" role="tabpanel" aria-labelledby="pills-contact-tab"></div>
                 </div>
             </div>
             <ModalPlayTrailer></ModalPlayTrailer>

@@ -16,12 +16,10 @@ const ShowTimeLayout = (props) => {
             <Layout className="showTimeTemplate">
                 <Header>
                     <nav className="navbar navbar-expand-md navbar-light">
-                        <div className="header__left col-2">
-                            <a className="navbar-brand" href="#"><img src={"/images/cybersoftlogo.png"} style={{ width: 45, height: 45 }} /></a>
+                        <div className="header__left">
+                            <NavLink className="navbar-brand" to='/'><img src={"/images/cybersoftlogo.png"} style={{ width: 45, height: 45 }} /></NavLink>
                         </div>
-                        <div className="header__center col-8" id="movieMenu">
-                        </div>
-                        <div className="header__right col-2">
+                        <div className="header__right">
                             <ShowLogin></ShowLogin>
                         </div>
                     </nav>

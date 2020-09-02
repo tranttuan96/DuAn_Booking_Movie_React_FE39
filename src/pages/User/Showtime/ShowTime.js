@@ -4,32 +4,40 @@ import { qlNguoiDungService } from '../../../services/quanLyNguoiDungService'
 import { userLogin } from '../../../settings/config';
 import { useDispatch, useSelector } from 'react-redux';
 import { luuTruDSGheAction } from '../../../redux/actions/quanLyDatGheAction'
+import swal from 'sweetalert';
 
 export default function ShowTime(props) {
 
-    let [thongTinLichChieu, setThongTinLichChieu] = useState({ danhSachGhe: [], thongTinPhim: {} });
-    let [danhSachGheDangDat, setDanhSachGheDangDat] = useState([]);
+    const [thongTinLichChieu, setThongTinLichChieu] = useState({ danhSachGhe: [], thongTinPhim: {} });
+    const [danhSachGheDangDat, setDanhSachGheDangDat] = useState([]);
 
     const dispatch = useDispatch();
 
     const dataGheDangDat = useSelector((state) => state.quanLyDatGheReducer.dataGheDangDat);
-    console.log(dataGheDangDat)
+    // console.log(dataGheDangDat)
 
     // đặt bên ngoài chứ không đặt trong useEffect do useEffect chỉ chạy 1 lần, khi gọi API layThongTinPhongVe về xong => render lại danh sách ghế, tuy nhiên khi có hàm set danhSachGheDangDat từ dataGheDangDat (như bên dưới) sẽ chỉ chạy 1 lần nếu đặt trong useEffect => đặt bên ngoài
     if (dataGheDangDat?.danhSachGheDangDatData.length !== 0 && dataGheDangDat?.maLichChieu === props.match.params.maLichChieu) {
+        let tempData = [];
         dataGheDangDat.danhSachGheDangDatData.map((gheDangDat, index) => {
-            return danhSachGheDangDat = [...danhSachGheDangDat, gheDangDat];
+            return tempData = [...tempData, gheDangDat];
         });
+        setDanhSachGheDangDat(tempData)
+        let dataGheDangDatTemp = {
+            maLichChieu: '',
+            danhSachGheDangDatData: []
+        }
+        dispatch(luuTruDSGheAction(dataGheDangDatTemp));
     }
 
-    console.log(danhSachGheDangDat)
+    // console.log(danhSachGheDangDat)
 
     useEffect(() => {
 
         //Lấy maLichChieu từ params
         let { maLichChieu } = props.match.params;
         qlPhimService.layThongTinPhongVe(maLichChieu).then((res) => {
-            console.log(res.data);
+            // console.log(res.data);
             // setLichChieuPhim(res.data)
             //Lấy dữ liệu BE trả về set vào danhSachGhe
             setThongTinLichChieu({
@@ -134,7 +142,12 @@ export default function ShowTime(props) {
                 "taiKhoanNguoiDung": JSON.parse(localStorage.getItem(userLogin)).taiKhoan
             }
             qlNguoiDungService.datVe(thongTinDatVe).then(res => {
-                console.log(res.data);
+                // console.log(res.data);
+                swal('', "Đặt vé thành công!", "success", {
+                    buttons: false,
+                    timer: 1500,
+                });
+                props.history.push('/userdetail')
             }).catch(err => {
                 console.log(err.response.data);
             })
@@ -145,6 +158,10 @@ export default function ShowTime(props) {
                 maLichChieu: props.match.params.maLichChieu,
                 danhSachGheDangDatData: danhSachGheDangDat
             }
+            swal('', 'Vui lòng đăng nhập để thanh toán', "", {
+                buttons: false,
+                timer: 1500,
+            });
             console.log(dataGheDangDatTemp)
             dispatch(luuTruDSGheAction(dataGheDangDatTemp));
             props.history.push('/login');
@@ -164,9 +181,9 @@ export default function ShowTime(props) {
     }
 
     const renderGhe = (ghe) => {
-        if (ghe.stt === 1) {
-            console.log(danhSachGheDangDat)
-        }
+        // if (ghe.stt === 1) {
+        //     console.log(danhSachGheDangDat)
+        // }
         let classGheVip = "";
         if (ghe.loaiGhe === "Vip") {
             classGheVip = "gheVip"

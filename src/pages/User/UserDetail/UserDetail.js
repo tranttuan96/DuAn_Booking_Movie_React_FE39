@@ -39,7 +39,7 @@ export default function UserDetail(props) {
                 "taiKhoan": JSON.parse(userData).taiKhoan
             }
             qlNguoiDungService.layThongTinTaiKhoan(thongTinTaiKhoan).then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 setThongTinNguoiDung({
                     thongTinCaNhan: res.data,
                     lichSuDatVe: res.data.thongTinDatVe
@@ -73,7 +73,7 @@ export default function UserDetail(props) {
             ...thongTinCaNhanUpdate.values,
             [name]: value
         }
-        console.log(newValues)
+        // console.log(newValues)
         const newErrors = { ...thongTinCaNhanUpdate.errors };
 
         if (name === "hoTen") {
@@ -126,7 +126,7 @@ export default function UserDetail(props) {
         if (!validClassDisables) {
             newErrors.classDisInfoButton = 'disabled'
         }
-        console.log(newErrors)
+        // console.log(newErrors)
 
         setThongTinCaNhanUpdate({ values: newValues, errors: newErrors });
     }
@@ -137,7 +137,7 @@ export default function UserDetail(props) {
             ...thongTinCaNhanUpdate.values,
             [name]: value
         }
-        console.log(newValues)
+        // console.log(newValues)
         const newErrors = { ...thongTinCaNhanUpdate.errors }
         if (name === "matKhauCu") {
             if (value.trim() === '') {
@@ -196,7 +196,7 @@ export default function UserDetail(props) {
 
         console.log(newValues)
         qlNguoiDungService.capNhatThongTinNguoiDung(newValues).then(res => {
-            console.log(res.data);
+            // console.log(res.data);
             swal("", "Cập nhật thông tin thành công", "success", {
                 buttons: false,
                 timer: 1500,
@@ -205,7 +205,7 @@ export default function UserDetail(props) {
                 "taiKhoan": JSON.parse(localStorage.getItem(userLogin)).taiKhoan
             }
             qlNguoiDungService.layThongTinTaiKhoan(thongTinTaiKhoan).then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 setThongTinNguoiDung({
                     thongTinCaNhan: res.data,
                     lichSuDatVe: res.data.thongTinDatVe
@@ -262,7 +262,7 @@ export default function UserDetail(props) {
 
         if (newErrors.matKhau === '' && newErrors.matKhauCu === '') {
             qlNguoiDungService.capNhatThongTinNguoiDung(newValues).then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 swal("", "Thay đổi mật khẩu thành công", "success", {
                     buttons: false,
                     timer: 1500,
@@ -271,7 +271,7 @@ export default function UserDetail(props) {
                     "taiKhoan": JSON.parse(localStorage.getItem(userLogin)).taiKhoan
                 }
                 qlNguoiDungService.layThongTinTaiKhoan(thongTinTaiKhoan).then(res => {
-                    console.log(res.data);
+                    // console.log(res.data);
                     setThongTinNguoiDung({
                         thongTinCaNhan: res.data,
                         lichSuDatVe: res.data.thongTinDatVe
@@ -294,24 +294,26 @@ export default function UserDetail(props) {
 
     const renderBookingHistory = () => {
         return thongTinNguoiDung.lichSuDatVe.map((veDaDat, index) => {
-            return <tr>
+            return <tr key={index}>
                 <td scope="row">{veDaDat.tenPhim}</td>
                 <td>{moment(veDaDat.ngayDat).format('L')}</td>
+                <td>{veDaDat.danhSachGhe[0].tenHeThongRap}</td>
+                <td> {veDaDat.danhSachGhe[0].tenCumRap} -
                 {veDaDat.danhSachGhe.map((gheDaDat, index2) => {
-                    return <Fragment>
-                        <td>{gheDaDat.tenHeThongRap}</td>
-                        <td>{gheDaDat.tenCumRap} - G{gheDaDat.tenGhe}</td>
+                    return <Fragment key={index2}>
+                        {`${index2 === 0 ? '' : ', '} G${gheDaDat.tenGhe} `}
                     </Fragment>
                 })}
-                <td>{veDaDat.giaVe}đ</td>
+                </td>
+                <td className="text-center">{veDaDat.giaVe*veDaDat.danhSachGhe.length}đ</td>
             </tr>
         })
     }
 
 
     return (
-        <div className="container">
-            <ul className="nav nav-pills" id="pills-tab" role="tablist">
+        <div className="userDetail">
+            <ul className="nav nav-pills mainMenu" id="pills-tab" role="tablist">
                 <li className="nav-item" role="presentation">
                     <a className="nav-link active" id="pills-home-tab" data-toggle="pill" href="#userInfo" role="tab" aria-controls="pills-home" aria-selected="true">THÔNG TIN CÁ NHÂN</a>
                 </li>
@@ -319,108 +321,107 @@ export default function UserDetail(props) {
                     <a className="nav-link" id="pills-profile-tab" data-toggle="pill" href="#bookingHistory" role="tab" aria-controls="pills-profile" aria-selected="false">LỊCH SỬ ĐẶT VÉ</a>
                 </li>
             </ul>
-            <div className="card">
-                <div className="card-body">
-                    <div className="tab-content px-5" id="pills-tabContent">
-                        <div className="tab-pane fade show active" id="userInfo" role="tabpanel" aria-labelledby="pills-userInfo-tab">
-                            <div className="card">
-                                <h5 className="card-header">Hồ sơ</h5>
-                                <div className="card-body row">
-                                    <div className="col-6">
-                                        <p>Tên: {thongTinNguoiDung.thongTinCaNhan.hoTen}</p>
-                                        <p>Mật khẩu: ••••••••</p>
-                                    </div>
 
-                                    <div className="col-6">
-                                        <p>Email: {thongTinNguoiDung.thongTinCaNhan.email}</p>
-                                        <p>Số điện thoại: {thongTinNguoiDung.thongTinCaNhan.soDT}</p>
-                                    </div>
+            <div className="tab-content px-5 mainContent" id="pills-tabContent">
+                <div className="tab-pane fade show active" id="userInfo" role="tabpanel" aria-labelledby="pills-userInfo-tab">
+                    <div className="card">
+                        <h5 className="card-header">Hồ sơ</h5>
+                        <div className="card-body row">
+                            <div className="col-6">
+                                <p>Tên: {thongTinNguoiDung.thongTinCaNhan.hoTen}</p>
+                                <p>Mật khẩu: ••••••••</p>
+                            </div>
+
+                            <div className="col-6">
+                                <p>Email: {thongTinNguoiDung.thongTinCaNhan.email}</p>
+                                <p>Số điện thoại: {thongTinNguoiDung.thongTinCaNhan.soDT}</p>
+                            </div>
+                        </div>
+
+                        <div id="accordianId" role="tablist" aria-multiselectable="true">
+                            <div className="card changeInfo">
+                                <div className="card-header" role="tab" id="section1HeaderId">
+                                    <p className="mb-0">
+                                        <a data-toggle="collapse" data-parent="#accordianId" href="#section1ContentId" aria-expanded="true" aria-controls="section1ContentId" onClick={() => {
+                                            setUpdateInfo()
+                                        }}>
+                                            Chỉnh sửa thông tin
+                                        </a>
+                                    </p>
                                 </div>
-                                <div id="accordianId" role="tablist" aria-multiselectable="true">
-                                    <div class="card">
-                                        <div class="card-header" role="tab" id="section1HeaderId">
-                                            <h5 class="mb-0">
-                                                <a data-toggle="collapse" data-parent="#accordianId" href="#section1ContentId" aria-expanded="true" aria-controls="section1ContentId" onClick={() => {
-                                                    setUpdateInfo()
-                                                }}>
-                                                    Chỉnh sửa thông tin
-                                        </a>
-                                            </h5>
-                                        </div>
-                                        <div id="section1ContentId" class="collapse in" role="tabpanel" aria-labelledby="section1HeaderId">
-                                            <div class="card-body">
-                                                <form onSubmit={handleSubmitBasicInfo} className="updateInfo">
-                                                    <div className="form-group">
-                                                        <span>Họ tên</span>
-                                                        <input className="form-control" name="hoTen" onChange={handleChangeBaseInfo} value={thongTinCaNhanUpdate.values.hoTen} />
-                                                        <span className="text-danger">{thongTinCaNhanUpdate.errors.hoTen}</span>
-                                                    </div>
-                                                    <div className="form-group">
-                                                        <span>Email</span>
-                                                        <input className="form-control" name="email" onChange={handleChangeBaseInfo} value={thongTinCaNhanUpdate.values.email} />
-                                                        <span className="text-danger">{thongTinCaNhanUpdate.errors.email}</span>
-                                                    </div>
-                                                    <div className="form-group">
-                                                        <span>Số điện thoại</span>
-                                                        <input className="form-control" name="soDT" onChange={handleChangeBaseInfo} value={thongTinCaNhanUpdate.values.soDT} />
-                                                        <span className="text-danger">{thongTinCaNhanUpdate.errors.soDT}</span>
-                                                    </div>
-                                                    <button type="submit" className="btn btn-primary" disabled={thongTinCaNhanUpdate.errors.classDisInfoButton} data-toggle="collapse" data-target="#section1ContentId">Lưu thay đổi</button>
-                                                </form>
+                                <div id="section1ContentId" className="collapse in" role="tabpanel" aria-labelledby="section1HeaderId">
+                                    <div className="card-body">
+                                        <form onSubmit={handleSubmitBasicInfo} className="updateInfo">
+                                            <div className="form-group">
+                                                <span>Họ tên</span>
+                                                <input className="form-control" name="hoTen" onChange={handleChangeBaseInfo} value={thongTinCaNhanUpdate.values.hoTen} />
+                                                <span className="text-danger">{thongTinCaNhanUpdate.errors.hoTen}</span>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="card">
-                                        <div class="card-header" role="tab" id="section2HeaderId">
-                                            <h5 class="mb-0">
-                                                <a data-toggle="collapse" data-parent="#accordianId" href="#section2ContentId" aria-expanded="true" aria-controls="section2ContentId">
-                                                    Thay đổi mật khẩu
-                                        </a>
-                                            </h5>
-                                        </div>
-                                        <div id="section2ContentId" class="collapse in" role="tabpanel" aria-labelledby="section2HeaderId">
-                                            <div class="card-body">
-                                                <form className="updatePassword" onSubmit={handleSubmitPassword}>
-                                                    <div className="form-group">
-                                                        <span>Mật khẩu hiện tại</span>
-                                                        <input type="password" className="form-control" name="matKhauCu" onChange={handleChangePassword} value={thongTinCaNhanUpdate.values.matKhauCu} />
-                                                        <span className="text-danger">{thongTinCaNhanUpdate.errors.matKhauCu}</span>
-                                                    </div>
-                                                    <div className="form-group">
-                                                        <span>Mật khẩu mới</span>
-                                                        <input type="password" className="form-control" name="matKhau" onChange={handleChangePassword} value={thongTinCaNhanUpdate.values.matKhau} />
-                                                        <span className="text-danger">{thongTinCaNhanUpdate.errors.matKhau}</span>
-                                                    </div>
-
-                                                    <button id="submitChangePass" type="submit" className="btn btn-primary" disabled={thongTinCaNhanUpdate.errors.classDisPassButton} data-toggle="collapse" data-target={`#${thongTinCaNhanUpdate.errors.setPassColID}`}>Lưu thay đổi</button>
-                                                </form>
+                                            <div className="form-group">
+                                                <span>Email</span>
+                                                <input className="form-control" name="email" onChange={handleChangeBaseInfo} value={thongTinCaNhanUpdate.values.email} />
+                                                <span className="text-danger">{thongTinCaNhanUpdate.errors.email}</span>
                                             </div>
-                                        </div>
+                                            <div className="form-group">
+                                                <span>Số điện thoại</span>
+                                                <input className="form-control" name="soDT" onChange={handleChangeBaseInfo} value={thongTinCaNhanUpdate.values.soDT} />
+                                                <span className="text-danger">{thongTinCaNhanUpdate.errors.soDT}</span>
+                                            </div>
+                                            <button type="submit" className="btn btn-primary" disabled={thongTinCaNhanUpdate.errors.classDisInfoButton} data-toggle="collapse" data-target="#section1ContentId">Lưu thay đổi</button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
+                            <div className="card">
+                                <div className="card-header" role="tab" id="section2HeaderId">
+                                    <p className="mb-0">
+                                        <a data-toggle="collapse" data-parent="#accordianId" href="#section2ContentId" aria-expanded="true" aria-controls="section2ContentId">
+                                            Thay đổi mật khẩu
+                                        </a>
+                                    </p>
+                                </div>
+                                <div id="section2ContentId" className="collapse in" role="tabpanel" aria-labelledby="section2HeaderId">
+                                    <div className="card-body">
+                                        <form className="updatePassword" onSubmit={handleSubmitPassword}>
+                                            <div className="form-group">
+                                                <span>Mật khẩu hiện tại</span>
+                                                <input type="password" className="form-control" name="matKhauCu" onChange={handleChangePassword} value={thongTinCaNhanUpdate.values.matKhauCu} />
+                                                <span className="text-danger">{thongTinCaNhanUpdate.errors.matKhauCu}</span>
+                                            </div>
+                                            <div className="form-group">
+                                                <span>Mật khẩu mới</span>
+                                                <input type="password" className="form-control" name="matKhau" onChange={handleChangePassword} value={thongTinCaNhanUpdate.values.matKhau} />
+                                                <span className="text-danger">{thongTinCaNhanUpdate.errors.matKhau}</span>
+                                            </div>
 
-                        </div>
-                        <div className="tab-pane fade" id="bookingHistory" role="tabpanel" aria-labelledby="pills-bookingHistory-tab">
-                            <table className="table">
-                                <thead>
-                                    <tr>
-                                        <th>Tên phim</th>
-                                        <th>Ngày đặt</th>
-                                        <th>Hệ thống</th>
-                                        <th>Rạp - ghế</th>
-                                        <th>Giá vé</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {renderBookingHistory()}
-                                </tbody>
-                            </table>
-
+                                            <button id="submitChangePass" type="submit" className="btn btn-primary" disabled={thongTinCaNhanUpdate.errors.classDisPassButton} data-toggle="collapse" data-target={`#${thongTinCaNhanUpdate.errors.setPassColID}`}>Lưu thay đổi</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
+
+                </div>
+                <div className="tab-pane fade" id="bookingHistory" role="tabpanel" aria-labelledby="pills-bookingHistory-tab">
+                    <table className="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th style={{ width: "15%" }}>Tên phim</th>
+                                <th style={{ width: "15%" }}>Ngày đặt</th>
+                                <th style={{ width: "25%" }}>Hệ thống</th>
+                                <th style={{ width: "30%" }}>Rạp - Ghế đã đặt</th>
+                                <th style={{ width: "15%", textAlign: "center" }}>Thanh toán</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {renderBookingHistory()}
+                        </tbody>
+                    </table>
+
                 </div>
             </div>
         </div>
+
     )
 }

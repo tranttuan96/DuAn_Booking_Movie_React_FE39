@@ -1,15 +1,32 @@
 .homepage__carousel {
-    .slick-slider {
-        &:hover {
-            .slick-list {
-              .slick-track {
-                .slick-slide {
-                  .buttonTrailer {
-                    opacity: 1;
-                  }
-                }
-              }
+  .slick-slider {
+    &:hover {
+      .slick-list {
+        .slick-track {
+          .slick-slide {
+            .buttonTrailer {
+              opacity: 1;
             }
           }
+        }
+      }
     }
+  }
+  @include responsive("medium") {
+    .slick-slider {
+      .slick-arrow {
+        width: 40px;
+        height: 80px;
+      }
+      .slick-dots {
+        bottom: 6%;
+        li {
+          button {
+            width: 12px;
+          height: 12px;
+          }
+        }
+      }
+    }
+  }
 }

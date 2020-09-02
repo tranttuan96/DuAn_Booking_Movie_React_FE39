@@ -61,14 +61,29 @@ export default function ManageUser() {
         let tempSearchValue = event.target.value;
         if (tempSearchValue !== '') {
             setIsSearching(true);
-            let searchTempData = danhSachNguoiDung.filter(user =>
-                Object.values(user).some(value =>
-                    String(value)
-                        .toLowerCase()
-                        .includes(String(tempSearchValue).toLowerCase())
-                )
-            )
-            setSearchingData(searchTempData);
+            // let searchTempData = danhSachNguoiDung.filter(user => 
+            //     Object.values(user).some(value => 
+            //             String(value)
+            //             .toLowerCase()
+            //             .includes(String(tempSearchValue).toLowerCase())
+            //     )
+            // )
+            let searchTempData2 = [];
+            danhSachNguoiDung.map((user) => {
+                return Object.keys(user).map(key => {
+                    if (key !== "matKhau" && key !== "maLoaiNguoiDung" && String(user[key])
+                    .toLowerCase()
+                    .includes(String(tempSearchValue).toLowerCase())) {
+                        let indexValue = searchTempData2.findIndex(value => value[key] === user[key]  && value.taiKhoan === user.taiKhoan)
+                        if (indexValue === -1) {
+                            searchTempData2.push(user)
+                        }
+                    }
+                })
+            })
+            // console.log(searchTempData)
+            // console.log(searchTempData2)
+            setSearchingData(searchTempData2);
             setCurrentPage(1)
         }
         else {
@@ -82,13 +97,13 @@ export default function ManageUser() {
 
     const xoaNguoiDung = (taiKhoan) => {
         qlNguoiDungService.xoaNguoiDung(taiKhoan).then(res => {
-            console.log(res.data);
+            // console.log(res.data);
             swal('', "Xóa Người dùng thành công", "success", {
                 buttons: false,
                 timer: 1500,
             });
             qlNguoiDungService.layDanhSachNguoiDung().then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 setDanhSachNguoiDung(res.data);
             }).catch(error => {
                 console.log(error.response.data);
@@ -107,7 +122,7 @@ export default function ManageUser() {
                 buttons: false,
                 timer: 1500,
             });
-            console.log(err.response.data);
+            // console.log(err.response.data);
         })
     }
 
@@ -123,13 +138,12 @@ export default function ManageUser() {
                 <table className="table table-bordered ">
                     <thead>
                         <tr>
-                            <th>STT</th>
-                            <th>Tên tài khoản</th>
-                            <th>Mật khẩu</th>
-                            <th>Họ tên</th>
-                            <th>Email</th>
-                            <th>Số điện thoại</th>
-                            <th></th>
+                            <th style={{ width: "5%" }}>STT</th>
+                            <th style={{ width: "20%" }}>Tên tài khoản</th>
+                            <th style={{ width: "20%" }}>Họ tên</th>
+                            <th style={{ width: "20%" }}>Email</th>
+                            <th style={{ width: "15%" }}>Số điện thoại</th>
+                            <th style={{ width: "20%" }}></th>
                         </tr>
                     </thead>
                     <tbody>

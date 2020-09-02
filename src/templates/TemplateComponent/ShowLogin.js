@@ -13,27 +13,33 @@ export default function ShowLogin(props) {
     const dispatch = useDispatch();
 
     const dangXuat = () => {
-        console.log(taiKhoan)
+        // console.log(taiKhoan)
         localStorage.removeItem(userLogin)
         localStorage.removeItem(accessToken)
         dispatch(dangNhapAction(localStorage.getItem(userLogin)))
     }
 
     const renderLogin = () => {
-        console.log(taiKhoan)
+        // console.log(taiKhoan)
         if (taiKhoan !== null && taiKhoan !== undefined) {
             return <div className="showLogin">
-            <img className="avatar" src={"/images/avatar-login.jpg"}></img>
-            <div className="dropdown daDangNhap">
-                <div className="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <NavLink className="nav-link" to="/">{taiKhoan}</NavLink>
-                </div>
-                <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <NavLink className="dropdown-item" to="/userdetail">Quản lý Tài khoản</NavLink>
-                    <NavLink className="dropdown-item" to="/" onClick={() => { dangXuat() }}>Đăng xuất</NavLink>
+                <img className="avatar" src={"/images/avatar-login.jpg"}></img>
+                <div className="dropdown daDangNhap">
+                    <div className="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <NavLink className="nav-link" to="/">{taiKhoan}</NavLink>
+                    </div>
+                    <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <NavLink className="dropdown-item" to="/userdetail">
+                            <i className="fa fa-user-edit"></i>
+                            Quản lý Tài khoản
+                    </NavLink>
+                        <NavLink className="dropdown-item" to="/home" onClick={() => { dangXuat() }}>
+                            <i className="fa fa-sign-out-alt"></i>
+                            Đăng xuất
+                            </NavLink>
+                    </div>
                 </div>
             </div>
-        </div>
         }
         return <div className="showLogin">
             <img className="avatar" src={"/images/avatar-logout.png"}></img>

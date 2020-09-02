@@ -1,0 +1,58 @@
+.userDetail {
+  padding-top: 30px;
+  max-width: 870px;
+  float: none;
+  margin: auto;
+  clear: both;
+  .mainMenu {
+    justify-content: center;
+    li {
+      a {
+        color: #000;
+        font-size: 18px;
+        font-weight: 500;
+        line-height: 24px;
+        height: 24px;
+        border: none;
+        background-color: transparent;
+        transition: all 0.2s;
+      }
+      a.active {
+        background-color: #fff;
+        color: #fa5238;
+      }
+    }
+  }
+  .mainContent {
+    padding-top: 40px;
+    padding-bottom: 40px;
+    #userInfo {
+        .card {
+            #accordianId {
+                .card.changeInfo {
+                    border-top: 1px solid rgba(0,0,0,.125);
+                }
+                .card {
+                    border-radius: 0;
+                    border: none;
+                    .card-header {
+                        
+                        p {
+                            a {
+                                color: rgba(0, 0, 0, 0.65);
+                            }
+                            a.active {
+                                color: rgba(0, 0, 0, 0.65);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    @include responsive("small") {
+      padding-left: 20px !important;
+      padding-right: 20px !important;
+    }
+  }
+}

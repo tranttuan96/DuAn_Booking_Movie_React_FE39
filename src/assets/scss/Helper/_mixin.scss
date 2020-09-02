@@ -9,3 +9,12 @@
 .element {
   @include clearfix;
 }
+
+@mixin responsive($screen) {
+  @if(map-has-key($breakpoints,$screen)){
+      $value:map-get($breakpoints,$screen);
+      @media screen and (max-width:$value){
+          @content;
+      }
+  }
+}

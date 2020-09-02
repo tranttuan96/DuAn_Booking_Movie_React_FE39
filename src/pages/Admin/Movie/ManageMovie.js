@@ -25,7 +25,7 @@ export default function ManageMovie() {
     useEffect(() => {
         setLoading(true);
         qlPhimService.layDanhSachPhim().then(res => {
-            console.log(res.data);
+            // console.log(res.data);
             setDanhSachPhim(res.data);
             setLoading(false);
         }).catch(error => {
@@ -51,7 +51,7 @@ export default function ManageMovie() {
 
     const handleSearch = (event) => {
         let searchValue = event.target.value;
-        console.log(searchValue)
+        // console.log(searchValue)
         if (searchValue !== '') {
             setIsSearching(true);
             let searchTempData = danhSachPhim.filter(phim =>
@@ -77,15 +77,15 @@ export default function ManageMovie() {
     }
 
     const xoaPhim = (maPhim) => {
-        console.log(maPhim)
+        // console.log(maPhim)
         qlPhimService.xoaPhim(maPhim).then(res => {
-            console.log(res.data);
+            // console.log(res.data);
             swal('', "Xóa phim thành công", "success", {
                 buttons: false,
                 timer: 1500,
             });
             qlPhimService.layDanhSachPhim().then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 setDanhSachPhim(res.data);
             }).catch(error => {
                 console.log(error.response.data);
@@ -95,7 +95,7 @@ export default function ManageMovie() {
                 buttons: false,
                 timer: 1500,
             });
-            console.log(err.response.data);
+            // console.log(err.response.data);
         })
     }
 
@@ -111,13 +111,13 @@ export default function ManageMovie() {
                 <table className="table table-bordered">
                     <thead>
                         <tr>
-                            <th>Mã phim</th>
-                            <th>Tên phim</th>
-                            <th>Hình ảnh</th>
-                            <th>Mô tả</th>
-                            <th>Mã nhóm</th>
-                            <th>Ngày khởi chiếu</th>
-                            <th></th>
+                            <th style={{ width: "10%" }}>Mã phim</th>
+                            <th style={{ width: "15%" }}>Tên phim</th>
+                            <th style={{ width: "10%" }}>Hình ảnh</th>
+                            <th style={{ width: "25%" }}>Mô tả</th>
+                            <th style={{ width: "5%" }}>Mã nhóm</th>
+                            <th style={{ width: "15%" }}>Ngày khởi chiếu</th>
+                            <th style={{ width: "20%" }}></th>
                         </tr>
                     </thead>
                     <tbody>

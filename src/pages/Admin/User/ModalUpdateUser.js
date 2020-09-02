@@ -122,21 +122,21 @@ export default function ModalUpdateUser(props) {
             });
             return;
         }
-        console.log('succcess')
-        qlNguoiDungService.capNhatThongTinNguoiDung(values).then(res => {
-            console.log(res.data);
+        // console.log('succcess')
+        qlNguoiDungService.capNhatThongTinNguoiDungAdmin(values).then(res => {
+            // console.log(res.data);
             swal('', "Cập nhật thông tin Người dùng thành công", "success", {
                 buttons: false,
                 timer: 1500,
             });
             qlNguoiDungService.layDanhSachNguoiDung().then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 props.setDanhSachNguoiDung(res.data);
             }).catch(error => {
                 console.log(error.response.data);
             });
         }).catch(err => {
-            console.log(err.response.data);
+            // console.log(err.response.data);
             swal('Oops', err.response.data, "error", {
                 buttons: false,
                 timer: 1500,

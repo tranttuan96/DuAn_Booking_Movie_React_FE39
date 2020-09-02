@@ -7,3 +7,6 @@ export const groupID = 'GP01';
 export const userLogin = 'userLogin';
 export const accessToken = 'token';
 export const currentDate = moment(Date()).format('L');
+
+let splitCurrentDate = currentDate.split("/", 3)
+export const nextDate = `${Number(splitCurrentDate[0]) + 1}/${splitCurrentDate[1]}/${splitCurrentDate[2]}`

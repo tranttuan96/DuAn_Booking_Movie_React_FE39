@@ -1,10 +1,22 @@
 import axios from 'axios';
-import {domain, groupID, accessToken} from '../settings/config';
+import {domain, groupID, accessToken, currentDate, nextDate} from '../settings/config';
 
 export class quanLyPhimService {
     layDanhSachPhim = () => {
         return axios({
             url:`${domain}/QuanLyPhim/LayDanhSachPhim?maNhom=${groupID}`,
+            method:'GET'
+        })
+    }
+    layDanhSachPhimDangChieu = () => {
+        return axios({
+            url:`${domain}/QuanLyPhim/LayDanhSachPhimTheoNgay?maNhom=${groupID}&soTrang=1&soPhanTuTrenTrang=16&tuNgay=01/01/2020&denNgay=${currentDate}`,
+            method:'GET'
+        })
+    }
+    layDanhSachPhimSapChieu = () => {
+        return axios({
+            url:`${domain}/QuanLyPhim/LayDanhSachPhimTheoNgay?maNhom=${groupID}&soTrang=1&tuNgay=${nextDate}&denNgay=31/12/2020`,
             method:'GET'
         })
     }

@@ -98,8 +98,8 @@ export default function ChooseShowTimeBar(props) {
 
     const handleChangeSelectFilm = (event) => {
         let { value, name } = event.target;
-        console.log(event.target.value)
-        console.log(event.target.value)
+        // console.log(event.target.value)
+        // console.log(event.target.value)
         //Tạo ra object this.selectMovie.values mới
         const newValues = {
             // phim: event.target.value,
@@ -112,7 +112,7 @@ export default function ChooseShowTimeBar(props) {
         //setState lại values
         setSelectMovie({ values: newValues });
         qlPhimService.layThongTinPhim_LichChieu(newValues?.phim).then((res) => {
-            console.log(res.data);
+            // console.log(res.data);
             setThongTinPhim(res.data)
         }).catch(errors => {
             console.log(errors.response.data);
@@ -120,7 +120,7 @@ export default function ChooseShowTimeBar(props) {
     };
 
     const handleChangeSelectCinema = (event) => {
-        console.log(event.target.value)
+        // console.log(event.target.value)
         // console.log(event.currentTarget.getAttribute('data-rap'))
         let { value, name } = event.target;
         //Tạo ra object this.selectMovie.values mới
@@ -128,41 +128,44 @@ export default function ChooseShowTimeBar(props) {
             ...selectMovie.values,
             [name]: value
         }
-        console.log(newValues)
+        // console.log(newValues)
         //setState lại values và errors
         setSelectMovie({ values: newValues });
     };
 
     return (
-        <form className="searchMovie">
-                    <div className="form-group w30p widthByPercent selectFilm">
-                        <select className="selectMenu" name="phim" onChange={handleChangeSelectFilm}>
-                            {renderSelectFilm()}
-                            <option defaultValue hidden>Phim</option>
-                        </select>
-                    </div>
-                    <div className="form-group dropdown smallBlock widthByPercent selectCinema">
-                        <select className="selectMenu" name="rap" onChange={handleChangeSelectCinema}>
-                            <option defaultValue hidden>Rạp</option>
-                            {renderSelectCinema()}
-                        </select>
-                    </div>
-                    <div className="form-group dropdown smallBlock widthByPercent selectDate">
-                        <select className="selectMenu" name="ngayXem" onChange={handleChangeSelectCinema}>
-                            <option defaultValue hidden>Ngày xem</option>
-                            {renderSelectDate()}
-                        </select>
-                    </div>
-                    <div className="form-group dropdown smallBlock widthByPercent selectSession">
-                        <select className="selectMenu" name="suatChieu" onChange={handleChangeSelectCinema}>
-                            <option defaultValue hidden>Suất chiếu</option>
-                            {renderSelectSession()}
-                        </select>
-                    </div>
+        <div className="searchMovie">
+            <form >
+                <div className="form-group w30p widthByPercent selectFilm">
+                    <select className="selectMenu" name="phim" onChange={handleChangeSelectFilm}>
+                        {renderSelectFilm()}
+                        <option defaultValue hidden>Phim</option>
+                    </select>
+                </div>
+                <div className="form-group dropdown smallBlock widthByPercent selectCinema">
+                    <select className="selectMenu" name="rap" onChange={handleChangeSelectCinema}>
+                        <option defaultValue hidden>Rạp</option>
+                        {renderSelectCinema()}
+                    </select>
+                </div>
+                <div className="form-group dropdown smallBlock widthByPercent selectDate">
+                    <select className="selectMenu" name="ngayXem" onChange={handleChangeSelectCinema}>
+                        <option defaultValue hidden>Ngày xem</option>
+                        {renderSelectDate()}
+                    </select>
+                </div>
+                <div className="form-group dropdown smallBlock widthByPercent selectSession">
+                    <select className="selectMenu" name="suatChieu" onChange={handleChangeSelectCinema}>
+                        <option defaultValue hidden>Suất chiếu</option>
+                        {renderSelectSession()}
+                    </select>
+                </div>
 
-                    <div className="form-group smallBlock widthByPercent">
-                        {renderButtonSelectFilm()}
-                    </div>
-                </form>
+                <div className="form-group smallBlock widthByPercent">
+                    {renderButtonSelectFilm()}
+                </div>
+            </form>
+        </div>
+
     )
 }

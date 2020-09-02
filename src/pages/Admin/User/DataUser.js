@@ -13,7 +13,6 @@ export default function DataUser(props) {
                 return <tr key={index}>
                     <td scope="row">{index + 1}</td>
                     <td>{user.taiKhoan}</td>
-                    <td type="password">{user.matKhau}</td>
                     <td>{user.hoTen}</td>
                     <td>{user.email}</td>
                     <td>{user.soDt}</td>

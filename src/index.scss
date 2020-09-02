@@ -5,6 +5,7 @@
 
 @import './assets/scss/Components/carousel';
 @import './assets/scss/Components/buttonTrailer';
+@import './assets/scss/Components/modalTrailer';
 @import './assets/scss/Components/pagination';
 
 @import './assets/scss/Layout/showtime';
@@ -12,12 +13,14 @@
 @import './assets/scss/Layout/register';
 @import './assets/scss/Layout/user/homepage/home';
 @import './assets/scss/Layout/user/homepage/homepageCarrousel';
+@import './assets/scss/Layout/user/homepage/movieList/chooseShowtimeBar';
 @import './assets/scss/Layout/user/homepage/movieList/movieList';
 @import './assets/scss/Layout/user/homepage/movieList/carouselMovie';
 @import './assets/scss/Layout/user/homepage/movieList/movie';
 @import './assets/scss/Layout/user/homepage/cinemaList';
 @import './assets/scss/Layout/user/cinemaDetail/cinemaDetail.scss';
 @import './assets/scss/Layout/user/movieDetail/movieDetail';
+@import './assets/scss/Layout/user/userDetail/userDetail';
 
 
 

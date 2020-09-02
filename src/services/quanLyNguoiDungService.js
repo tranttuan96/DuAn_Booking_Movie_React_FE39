@@ -44,13 +44,14 @@ export class quanLyNguoiDungService {
             url: `${domain}/QuanLyNguoiDung/CapNhatThongTinNguoiDung`,
             method:'put',
             data:{...thongTinTaiKhoan, "maNhom": groupID, "maLoaiNguoiDung": "KhachHang"},
+            // data: thongTinTaiKhoan,
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem(accessToken)}`
             }
         })
     }
 
-    layDanhSachNguoiDung = (thongTinTaiKhoan) => {
+    layDanhSachNguoiDung = () => {
         return axios({
             url: `${domain}/QuanLyNguoiDung/LayDanhSachNguoiDung?MaNhom=${groupID}`,
             method:'get',
@@ -68,7 +69,7 @@ export class quanLyNguoiDungService {
         })
     }
 
-    capNhatThongTinNguoiDung = (thongTinTaiKhoan) => {
+    capNhatThongTinNguoiDungAdmin = (thongTinTaiKhoan) => {
         return axios({
             url: `${domain}/QuanLyNguoiDung/CapNhatThongTinNguoiDung`,
             method:'put',

@@ -58,7 +58,6 @@ export default function AddMovie(props) {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log(123123)
         let { values, errors } = dataThemPhim;
         let valid = true;
         for (let key in values) {
@@ -87,7 +86,7 @@ export default function AddMovie(props) {
         }
         
         qlPhimService.themPhimUploadHinh(formData).then(res => {
-            console.log(res.data);
+            // console.log(res.data);
             swal('',"Thêm phim mới thành công", "success", {
                 buttons: false,
                 timer: 1500,

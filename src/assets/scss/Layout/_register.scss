@@ -1,16 +1,26 @@
 .register {
     position: absolute;
-    max-width: 360px;
-    padding: 40px 32px 30px;
+    max-width: 450px;
+    padding: 25px 25px 25px;
     background-image: linear-gradient(to bottom,rgba(20,50,93,.9),rgba(8,22,48,.9));
     box-shadow: 0 0 10px 0 rgba(0,0,0,.45);
     text-align: center;
     color: #fff;
     border-radius: 6px;
-    h3 {
+    h4 {
         color: #fff;
     }
     .form-group {
         text-align: left;
+        min-height: 75px;
+        margin-bottom: 8px;
+    }
+
+    .form-group.btnSubmit {
+        padding-top: 21px;
+        text-align: center;
+        button {
+            width: 100%;
+        }
     }
 }

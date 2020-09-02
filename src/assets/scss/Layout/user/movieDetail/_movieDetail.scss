@@ -40,16 +40,18 @@ $howManySteps: 100;
       left: 50%;
       transform: translate3d(-50%, -50%, 0);
       max-width: 870px;
+      height: 55%;
       float: none;
       margin: auto;
       clear: both;
       .movieImg {
         padding: 0;
-        max-width: 220px;
+        width: 100%;
+        height: 100%;
         position: relative;
         .movieThump {
           width: 100%;
-          height: 300px;
+          height: 100%;
           border-radius: 4px;
           box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.5);
         }
@@ -362,7 +364,99 @@ $howManySteps: 100;
       }
     }
   }
+  @include responsive("extra-large") {
+    .movieDetail__content {
+      // transform: translate(0, -40px);
+    }
+  }
+
+  @include responsive("large") {
+    .movieDetail__intro {
+      .movieDetail__intro-backImg {
+        height: 450px;
+      }
+      .movieDetail__intro-info {
+        max-width: 90%;
+        .movieInfo {
+          left: 190px;
+        }
+        .movieImg {
+          .movieThump {
+            max-width: 185px;
+          }
+        }
+
+      }
+    }
+    .movieDetail__content {
+      max-width: 90%;
+    }
+  }
+  @include responsive("medium") {
+    .movieDetail__intro {
+      .movieDetail__intro-info {
+      }
+    }
+    .movieDetail__content {
+      .mainContent {
+        .listPCinema,
+      .listCinema {
+        min-height: 450px;
+        max-height: 450px;
+      }
+      .listPCinema {
+        width: 100px;
+        .nav-link {
+          span {
+            display: none;
+          }
+        }
+      }
+      .listCinema {
+        width: calc(100% - 100px);
+        .movieShowtime {
+          .bookingTime{
+            a {
+              font-size: 15px;
+            }
+          }
+        }
+      }
+    }}
+  }
+
+  @include responsive("small") {
+    .movieDetail__intro {
+      .movieDetail__intro-info {
+        .movieInfo {
+          left: 190px;
+        }
+        .movieImg {
+          .movieThump {
+            width: 100% !important;
+            max-width: 185px !important;
+          }
+        }
+
+      }
+    }
+    .movieDetail__content {
+      .mainContent {
+      .listCinema {
+        .movieShowtime {
+          .bookingTime{
+            a {
+              width: calc(33% - 10px);
+              font-size: 14px;
+            }
+          }
+        }
+      }
+    }
+    }
+  }
 }
+
 
 @for $i from 1 through $howManySteps {
 	$stepName: ($i*(100 / $howManySteps));

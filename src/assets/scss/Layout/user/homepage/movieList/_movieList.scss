@@ -12,15 +12,37 @@
   .nav-tabs.menuFilm {
     border: none;
     justify-content: center;
+    margin-bottom: 15px;
     li {
       a {
-        color: #495057;
+        color: #000;
+        font-size: 20px;
+        font-weight: 500;
+        line-height: 24px;
+        height: 24px;
         border: none;
         background-color: transparent;
+        transition: all 0.2s;
+        &:hover {
+          font-size: 24px;
+        }
       }
       a.active {
         color: #fa5238;
+        font-size: 24px;
       }
+    }
+  }
+  @include responsive("large") {
+    max-width: 705px;
+  }
+
+  @include responsive("medium") {
+    max-width: 470px;
+    padding-top: 30px;
+    padding-bottom: 0;
+    .nav-tabs.menuFilm {
+      margin-bottom: 0;
     }
   }
 }

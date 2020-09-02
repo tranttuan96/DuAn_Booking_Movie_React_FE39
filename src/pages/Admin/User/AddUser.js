@@ -115,13 +115,13 @@ export default function AddUser() {
         }
         console.log('succcess')
         qlNguoiDungService.themNguoiDung(values).then(res => {
-            console.log(res.data);
+            // console.log(res.data);
             swal('', "Thêm người thành công", "success", {
                 buttons: false,
                 timer: 1500,
             });
         }).catch(err => {
-            console.log(err.response.data);
+            // console.log(err.response.data);
             swal('Oops', err.response.data, "error", {
                 buttons: false,
                 timer: 1500,
