@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/DuAn_Booking_Movie_React_FE39/static/css/main.2ba9857e.chunk.css",
+    "main.js": "/DuAn_Booking_Movie_React_FE39/static/js/main.063c8e17.chunk.js",
+    "main.js.map": "/DuAn_Booking_Movie_React_FE39/static/js/main.063c8e17.chunk.js.map",
+    "runtime-main.js": "/DuAn_Booking_Movie_React_FE39/static/js/runtime-main.1e68858c.js",
+    "runtime-main.js.map": "/DuAn_Booking_Movie_React_FE39/static/js/runtime-main.1e68858c.js.map",
+    "static/css/2.fc5a9450.chunk.css": "/DuAn_Booking_Movie_React_FE39/static/css/2.fc5a9450.chunk.css",
+    "static/js/2.d55c8a92.chunk.js": "/DuAn_Booking_Movie_React_FE39/static/js/2.d55c8a92.chunk.js",
+    "static/js/2.d55c8a92.chunk.js.map": "/DuAn_Booking_Movie_React_FE39/static/js/2.d55c8a92.chunk.js.map",
+    "index.html": "/DuAn_Booking_Movie_React_FE39/index.html",
+    "precache-manifest.c11a886e864b094ac9d327cd4bde5943.js": "/DuAn_Booking_Movie_React_FE39/precache-manifest.c11a886e864b094ac9d327cd4bde5943.js",
+    "service-worker.js": "/DuAn_Booking_Movie_React_FE39/service-worker.js",
+    "static/css/2.fc5a9450.chunk.css.map": "/DuAn_Booking_Movie_React_FE39/static/css/2.fc5a9450.chunk.css.map",
+    "static/css/main.2ba9857e.chunk.css.map": "/DuAn_Booking_Movie_React_FE39/static/css/main.2ba9857e.chunk.css.map",
+    "static/js/2.d55c8a92.chunk.js.LICENSE.txt": "/DuAn_Booking_Movie_React_FE39/static/js/2.d55c8a92.chunk.js.LICENSE.txt",
+    "static/media/index.scss": "/DuAn_Booking_Movie_React_FE39/static/media/back-cinemaList.d713fc3a.png",
+    "static/media/LoginTemplate.scss": "/DuAn_Booking_Movie_React_FE39/static/media/bgLogin.4c4a3b7b.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.1e68858c.js",
+    "static/css/2.fc5a9450.chunk.css",
+    "static/js/2.d55c8a92.chunk.js",
+    "static/css/main.2ba9857e.chunk.css",
+    "static/js/main.063c8e17.chunk.js"
+  ]
+}
